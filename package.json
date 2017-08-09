@@ -1,0 +1,14 @@
+{
+  "name": "spotify",
+  "version": "1.0.0",
+  "description": "proyecto de APIRest con nodejs para hacer una app parecida a spotify",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "musica"
+  ],
+  "author": "Jorge L. Alfaro",
+  "license": "ISC"
+}
