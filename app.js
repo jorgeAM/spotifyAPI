@@ -6,7 +6,7 @@ var bodyParser = require('body-parser')
 const app = express()
 
 //rutas
-
+var user_routes = require('./routes/user');
 
 //configurar bodyparser
 app.use(bodyParser.urlencoded({extended: false}))
@@ -16,9 +16,8 @@ app.use(bodyParser.json())
 //configurar cabeceras http
 
 
-//rutas base
-app.get('/', (req, res) =>{
-	res.status(200).send({message: 'Spotify'})
-})
+//rutas base -> le damos como un prefix
+app.use('/api', user_routes);
+
 
 module.exports = app;
