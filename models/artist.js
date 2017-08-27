@@ -10,4 +10,4 @@ var artistSchema = new Schema({
 });
 
 //exportamos el modelo
-module export = mongoose.model('Artist', artistSchema);
+module.exports = mongoose.model('Artist', artistSchema);

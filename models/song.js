@@ -15,4 +15,4 @@ var songSchema = new Schema({
 });
 
 //exportamos el modelo
-module export = mongoose.model('Song', songSchema)
+module.exports = mongoose.model('Song', songSchema)
