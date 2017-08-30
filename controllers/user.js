@@ -78,9 +78,28 @@ function loginUser(req, res){
 
 }
 
+function updateUser(req, res){
+	//guardamos id de peticion
+	var userId = req.params.id;
+	//guardamos todo el cuerpo de la petición
+	var update = req.body;
+	User.findByIdAndUpdate(userId, update, (err, userUpdated) => {
+		if(err){
+			res.status(500).send({message: 'Error al actualizar el usuario, ctm!'});
+		}else {
+			if(!userUpdated){
+				res.status(404).send({message: 'No pudo actualizar el usuario, ctm!'});
+			}else{
+				res.status(200).send({user: userUpdated});
+			}
+		}
+	});
+}
+
 //exportamos metodos de controlador
 module.exports = {
 	pruebas,
 	saveUser,
-	loginUser
+	loginUser,
+	updateUser
 }

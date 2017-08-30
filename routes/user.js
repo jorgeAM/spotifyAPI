@@ -11,5 +11,7 @@ api.get('/prueba', authenticatedMiddleware.ensureAuth, userController.pruebas);
 api.post('/register', userController.saveUser);
 //iniciar sesión
 api.post('/login', userController.loginUser);
+//actualizar usuario
+api.put('/update-user/:id', authenticatedMiddleware.ensureAuth, userController.updateUser);
 
 module.exports = api;
