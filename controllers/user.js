@@ -1,3 +1,9 @@
+//modulo de nodejs para manejar archivos
+const fs = require('fs');
+//modulo de nodejs para usar la ruta de lo archivos
+const path = require('path');
+
+
 //encriptar password
 var bcrypt = require('bcrypt-nodejs');
 //importar modelo
@@ -132,11 +138,28 @@ function uploadAvatar(req, res){
 	}
 }
 
+function getImageFile(req, res){
+	var imageFile = req.params.imageFile;
+	var path_file = './uploads/users/'+imageFile;
+
+	fs.stat(path_file, (err, stat) =>{
+		if(err){
+			res.status(500).send({message: 'Error al conseguir imagen!'});
+		}else{
+			if(stat){
+				res.sendFile(path.resolve(path_file));
+			}
+		}
+	})
+
+}
+
 //exportamos metodos de controlador
 module.exports = {
 	pruebas,
 	saveUser,
 	loginUser,
 	updateUser,
-	uploadAvatar
+	uploadAvatar,
+	getImageFile
 }

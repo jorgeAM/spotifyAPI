@@ -22,5 +22,7 @@ api.post('/login', userController.loginUser);
 api.put('/update-user/:id', authenticatedMiddleware.ensureAuth, userController.updateUser);
 //subir avatar
 api.post('/upload-avatar/:id', [authenticatedMiddleware.ensureAuth, multipartMiddleware], userController.uploadAvatar);
+//conseguir avatar
+api.get('/get-avatar/:imageFile', userController.getImageFile);
 
 module.exports = api;
