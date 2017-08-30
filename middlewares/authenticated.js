@@ -15,7 +15,6 @@ exports.ensureAuth = (req, res, next)=>{
 			return res.status(401).send({message: 'Crrano, tu token ha EXPIRADO!'});
 		}
 	}catch(ex){
-		console.log(ex);
 		return res.status(404).send({message: 'Crrano, tu token no es valido.'});
 	}
 	//agregamos el payload a un propiedad usuario

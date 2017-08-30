@@ -96,10 +96,47 @@ function updateUser(req, res){
 	});
 }
 
+function uploadAvatar(req, res){
+	var userId = req.params.id;
+	var file_name = 'No subido...';
+	if(req.files){
+		//ruta del archivo
+		var file_path = req.files.image.path;
+		//separamos la ruta por '/'
+		var file_split = file_path.split('/');
+		//sacamos el nombre de archivo
+		var file_name = file_split[2];
+		//separamos el nombre del archivo por .
+		var ext_split = file_name.split('.')
+		//sacamos la extensión del archivo
+		var ext_file = ext_split[1];
+		//comprobamos si es un imagen
+		if(ext_file == 'png' || ext_file == 'jpg' || ext_file == 'gif'){
+			//me deja subir la imagen
+			User.findByIdAndUpdate(userId, {image: file_name}, (err, userUpdated) => {
+				if(err){
+					res.status(500).send({message: 'Error al subir imagen!'});
+				}else {
+					if(!userUpdated){
+						res.status(404).send({message: 'No pudo actualizar el usuario, ctm!'});
+					}else{
+						res.status(200).send({user: userUpdated});
+						}
+				}
+			});
+		}else{
+			res.status(200).send({message: 'agg tmr, solo puedes subir imagenes'});
+		}
+	}else{
+		res.status(200).send({message: 'Crrano, no se ha subio ninguna imagen'});
+	}
+}
+
 //exportamos metodos de controlador
 module.exports = {
 	pruebas,
 	saveUser,
 	loginUser,
-	updateUser
+	updateUser,
+	uploadAvatar
 }
