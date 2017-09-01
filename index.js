@@ -1,5 +1,7 @@
 //cargamos libreria para conexion con db
 var mongoose = require('mongoose');
+//para arreglar el warning de mongoose
+mongoose.Promise = require('bluebird');
 //cargamos modulo de app.js
 var app = require('./app.js');
 
