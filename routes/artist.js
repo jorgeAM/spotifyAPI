@@ -11,5 +11,6 @@ api.get('/artist/:id', authenticatedMiddleware.ensureAuth, artistController.getA
 api.post('/create-artist', authenticatedMiddleware.ensureAuth, artistController.saveArtist);
 api.get('/artists/:page?', authenticatedMiddleware.ensureAuth, artistController.getArtists);
 api.put('/artist/:id', authenticatedMiddleware.ensureAuth, artistController.updateArtist);
+api.delete('/artist/:id', authenticatedMiddleware.ensureAuth, artistController.deleteArtist);
 
 module.exports = api;
