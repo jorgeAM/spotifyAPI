@@ -13,16 +13,38 @@ const Song = require('../models/song.js');
 function getAlbum(req, res){
 	//guardamos 
 	let albumId = req.params.id;
-	Album.findById(albumId, (err, album) => {
-		//si hay un error
+	Album.findById(albumId).populate('artist').exec((err, album) => {
 		if(err){
 			res.status(500).send({message: 'Crrano, hubo un error'});
 		}else{
-			//si no existe album
 			if(!album){
-				res.status(404).send({message: 'Crrano, hubo un error al mostrar album'});
+				res.status(404).send({message: 'Crrano, hubo un error al consegur album'});
 			}else{
-				res.status(200).send({album: album});
+				res.status(200).send({ album: album });
+			}
+		}
+	});
+}
+
+function getAlbums(req, res){
+	//guardamos id de artist
+	let artistId = req.params.artist;
+	//si hubiera id de artista en parametro
+	if(!artistId){
+		//si no lo hay, mostramos todos los albunes
+		var find = Album.find().sort('title');
+	}else{
+		//si hay id de artista
+		var find = Album.find({artist: artistId}).sort('year');
+	}
+	find.populate('artist').exec((err, albums) => {
+		if(err){
+			res.status(500).send({message: 'Crrano, hubo un error'});
+		}else{
+			if(!albums){
+				res.status(404).send({message: 'Crrano, hubo un error al consegur albums'});
+			}else{
+				res.status(200).send({ albums: albums });
 			}
 		}
 	});
@@ -56,5 +78,6 @@ function saveAlbum(req, res){
 
 module.exports = {
 	getAlbum,
+	getAlbums,
 	saveAlbum
 };
