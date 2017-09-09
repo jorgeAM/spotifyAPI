@@ -17,8 +17,8 @@ var multipartMiddleware = multipart({
 api.get('/album/:id', authenticatedMiddleware.ensureAuth, albumController.getAlbum);
 api.post('/create-album', authenticatedMiddleware.ensureAuth, albumController.saveAlbum);
 api.get('/albums/:artist?', authenticatedMiddleware.ensureAuth, albumController.getAlbums);
+api.put('/album/:id', authenticatedMiddleware.ensureAuth, albumController.updateAlbum);
 /*
-api.put('/album/:id', authenticatedMiddleware.ensureAuth, albumController.updateArtist);
 api.delete('/album/:id', authenticatedMiddleware.ensureAuth, albumController.deleteArtist);
 //subir imagen de artista
 api.post('/upload-image-album/:id', [authenticatedMiddleware.ensureAuth, multipartMiddleware], albumController.uploadImage);
