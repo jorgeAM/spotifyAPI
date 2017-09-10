@@ -21,6 +21,37 @@ function getSong(req, res){
 	})
 }
 
+function getSongs(req, res){
+	let albumId = req.params.album
+	//si no nos llega el id del album
+	if(!albumId){
+		var find = Song.find({}).sort('number');
+	}else{
+		//nos llego el id del album
+		var find = Song.find({album: albumId}).sort('number');
+	}
+	find.populate({
+		path: 'album',
+		populate: {
+			path: 'artist',
+			model: 'Artist'
+		}
+	})
+	.exec((err, songs) => {
+		//si hay un error
+		if(err){
+			res.status(500).send({message: 'Crrano, hubo un error'});
+		}else{
+			if(!songs){
+				res.status(404).send({message: 'agg tmr, no se pudo mostrar la canciones'});
+			}else{
+				res.status(200).send({songs: songs});
+			}
+		}
+	});
+
+}
+
 function saveSong(req, res){
 	//creamos objeto song
 	let song = new Song();
@@ -47,5 +78,6 @@ function saveSong(req, res){
 
 module.exports = {
 	getSong,
+	getSongs,
 	saveSong
 };
