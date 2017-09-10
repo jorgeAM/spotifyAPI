@@ -18,8 +18,8 @@ api.get('/album/:id', authenticatedMiddleware.ensureAuth, albumController.getAlb
 api.post('/create-album', authenticatedMiddleware.ensureAuth, albumController.saveAlbum);
 api.get('/albums/:artist?', authenticatedMiddleware.ensureAuth, albumController.getAlbums);
 api.put('/album/:id', authenticatedMiddleware.ensureAuth, albumController.updateAlbum);
+api.delete('/album/:id', authenticatedMiddleware.ensureAuth, albumController.deleteAlbum);
 /*
-api.delete('/album/:id', authenticatedMiddleware.ensureAuth, albumController.deleteArtist);
 //subir imagen de artista
 api.post('/upload-image-album/:id', [authenticatedMiddleware.ensureAuth, multipartMiddleware], albumController.uploadImage);
 //conseguir imagen de artista

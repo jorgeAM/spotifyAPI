@@ -95,9 +95,38 @@ function updateAlbum(req, res){
 	})
 }
 
+function deleteAlbum(req, res){
+	albumId = req.params.id;
+	Album.findByIdAndRemove(albumId, (err, album) => {
+		//si hay error
+		if(err){
+			res.status(500).send({message: 'Crrano, hubo un error'});
+		}else{
+			if(!album){
+				res.status(404).send({message: 'Crrano, hubo un error al eliminar album'});
+			}else{
+				//eliminamos canciones del album
+				Song.find({album: albumId}).remove((err, song) => {
+					//si hay un error
+					if(err){
+						res.status(500).send({message: 'Crrano, hubo un error'});
+					}else{
+						if(!song){
+							res.status(404).send({message: 'Crrano, hubo un error al eliminar cancion'});
+						}else{
+							res.status(200).send({album: album});
+						}
+					}
+				});
+			}
+		}
+	});
+}
+
 module.exports = {
 	getAlbum,
 	getAlbums,
 	saveAlbum,
-	updateAlbum
+	updateAlbum,
+	deleteAlbum
 };
