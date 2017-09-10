@@ -76,8 +76,28 @@ function saveSong(req, res){
 	});
 }
 
+function updateSong(req, res){
+	//id de song
+	let songId = req.params.id;
+	//guardamos parametros en variable
+	let update = req.body;
+	Song.findByIdAndUpdate(songId, update, (err, song) => {
+		//si hay un error
+		if(err){
+			res.status(500).send({message: 'Crrano, hubo un error'});
+		}else{
+			if(!song){
+				res.status(404).send({message: 'agg tmr, no se pudo actualizar la cancion'});
+			}else{
+				res.status(200).send({song: song});
+			}
+		}
+	})
+}
+
 module.exports = {
 	getSong,
 	getSongs,
-	saveSong
+	saveSong,
+	updateSong
 };
