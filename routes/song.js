@@ -14,7 +14,7 @@ var multipartMiddleware = multipart({
 
 
 
-api.get('/song/:id?', authenticatedMiddleware.ensureAuth, songController.getSong);
+api.get('/song/:id', authenticatedMiddleware.ensureAuth, songController.getSong);
 api.post('/create-song', authenticatedMiddleware.ensureAuth, songController.saveSong);
 /*
 api.get('/song/:artist?', authenticatedMiddleware.ensureAuth, songController.getAlbums);

@@ -6,7 +6,19 @@ const path = require('path');
 const Song = require('../models/song.js');
 
 function getSong(req, res){
-	console.log('gola');
+	let songId = req.params.id;
+	Song.findById(songId).populate('album').exec((err, song) => {
+		//si hay un error
+		if(err){
+			res.status(500).send({message: 'Crrano, hubo un error'});
+		}else{
+			if(!song){
+				res.status(404).send({message: 'agg tmr, no se pudo mostrar la cancion'});
+			}else{
+				res.status(200).send({song: song});
+			}
+		}
+	})
 }
 
 function saveSong(req, res){
