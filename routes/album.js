@@ -9,7 +9,7 @@ var api = express.Router();
 var multipart = require('connect-multiparty');
 //llamamos al middleware de la libreria
 var multipartMiddleware = multipart({
-	uploadDir: './uploads/artists'
+	uploadDir: './uploads/albums'
 });
 
 
@@ -19,10 +19,9 @@ api.post('/create-album', authenticatedMiddleware.ensureAuth, albumController.sa
 api.get('/albums/:artist?', authenticatedMiddleware.ensureAuth, albumController.getAlbums);
 api.put('/album/:id', authenticatedMiddleware.ensureAuth, albumController.updateAlbum);
 api.delete('/album/:id', authenticatedMiddleware.ensureAuth, albumController.deleteAlbum);
-/*
 //subir imagen de artista
 api.post('/upload-image-album/:id', [authenticatedMiddleware.ensureAuth, multipartMiddleware], albumController.uploadImage);
 //conseguir imagen de artista
 api.get('/get-album-image/:imageFile', albumController.getImageFile);
-*/
+
 module.exports = api;

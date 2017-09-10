@@ -123,10 +123,63 @@ function deleteAlbum(req, res){
 	});
 }
 
+function uploadImage(req, res){
+	var albumId = req.params.id;
+	var file_name = 'No subido...';
+	if(req.files){
+		//ruta del archivo
+		var file_path = req.files.image.path;
+		//separamos la ruta por '/'
+		var file_split = file_path.split('/');
+		//sacamos el nombre de archivo
+		var file_name = file_split[2];
+		//separamos el nombre del archivo por .
+		var ext_split = file_name.split('.')
+		//sacamos la extensión del archivo
+		var ext_file = ext_split[1];
+		//comprobamos si es un imagen
+		if(ext_file == 'png' || ext_file == 'jpg' || ext_file == 'gif'){
+			//me deja subir la imagen
+			Album.findByIdAndUpdate(albumId, {image: file_name}, (err, album) => {
+				if(err){
+					res.status(500).send({message: 'Error al subir imagen!'});
+				}else {
+					if(!album){
+						res.status(404).send({message: 'No pudo actualizar el album, ctm!'});
+					}else{
+						res.status(200).send({album: album});
+						}
+				}
+			});
+		}else{
+			res.status(200).send({message: 'agg tmr, solo puedes subir imagenes'});
+		}
+	}else{
+		res.status(200).send({message: 'Crrano, no se ha subio ninguna imagen'});
+	}
+}
+
+function getImageFile(req, res){
+	var imageFile = req.params.imageFile;
+	var path_file = './uploads/albums/'+imageFile;
+	//vemos si esta la imagen
+	fs.stat(path_file, (err, stat) =>{
+		if(err){
+			res.status(500).send({message: 'Error al conseguir imagen!'});
+		}else{
+			if(stat){
+				res.sendFile(path.resolve(path_file));
+			}
+		}
+	})
+}
+
 module.exports = {
 	getAlbum,
 	getAlbums,
 	saveAlbum,
 	updateAlbum,
-	deleteAlbum
+	deleteAlbum,
+	uploadImage,
+	getImageFile
 };
