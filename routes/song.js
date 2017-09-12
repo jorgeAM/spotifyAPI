@@ -18,11 +18,10 @@ api.get('/song/:id', authenticatedMiddleware.ensureAuth, songController.getSong)
 api.post('/create-song', authenticatedMiddleware.ensureAuth, songController.saveSong);
 api.get('/songs/:album?', authenticatedMiddleware.ensureAuth, songController.getSongs);
 api.put('/song/:id', authenticatedMiddleware.ensureAuth, songController.updateSong);
-/*
-api.delete('/song/:id', authenticatedMiddleware.ensureAuth, songController.deleteAlbum);
+api.delete('/song/:id', authenticatedMiddleware.ensureAuth, songController.deleteSong);
 //subir imagen de artista
-api.post('/upload-image-album/:id', [authenticatedMiddleware.ensureAuth, multipartMiddleware], songController.uploadImage);
+api.post('/upload-song/:id', [authenticatedMiddleware.ensureAuth, multipartMiddleware], songController.uploadSongFile);
 //conseguir imagen de artista
-api.get('/get-album-image/:imageFile', songController.getImageFile);
-*/
+api.get('/get-song/:songFile', songController.getSongFile);
+
 module.exports = api;
