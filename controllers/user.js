@@ -126,7 +126,7 @@ function uploadAvatar(req, res){
 					if(!userUpdated){
 						res.status(404).send({message: 'No pudo actualizar el usuario, ctm!'});
 					}else{
-						res.status(200).send({user: userUpdated});
+						res.status(200).send({image: file_name, user: userUpdated});
 						}
 				}
 			});
