@@ -13,11 +13,18 @@ var song_routes = require('./routes/song');
 
 //configurar bodyparser
 app.use(bodyParser.urlencoded({extended: false}))
-//ára que convierta a json los datos que nos llegaran
+//para que convierta a json los datos que nos llegaran
 app.use(bodyParser.json())
 
 //configurar cabeceras http
+app.user((req, res, next) => {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+	res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+	res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
 
+	next();
+})
 
 //rutas base -> le damos como un prefix
 app.use('/api', user_routes);
