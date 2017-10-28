@@ -18,7 +18,7 @@ function getArtists(req, res){
 	}else{
 		var page = 1;
 	}
-	let itemsPerPage = 2;
+	let itemsPerPage = 20;
 	Artist.find().sort('name').paginate(page, itemsPerPage, (err, artists, total) => {
 		if(err){
 			res.status(500).send({message: 'Crrano, hubo un error'});

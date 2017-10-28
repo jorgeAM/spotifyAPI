@@ -37,7 +37,7 @@ function saveUser(req, res){
 					if(err){
 						res.status(500).send({message: 'Qué hiciste Crrano?'});
 					}else{
-						res.status(200).send({message: user});
+						res.status(200).send({user: user});
 					}
 				});
 			}else{
@@ -89,6 +89,12 @@ function updateUser(req, res){
 	var userId = req.params.id;
 	//guardamos todo el cuerpo de la petición
 	var update = req.body;
+
+	//comprobar si es igual al user que saca el middelware de auth
+	if(!userId == req.user.sub){
+		return res.status(500).send({message: 'No tienes permiso, para actualizar el usuario!'});
+	}
+
 	User.findByIdAndUpdate(userId, update, (err, userUpdated) => {
 		if(err){
 			res.status(500).send({message: 'Error al actualizar el usuario, ctm!'});
