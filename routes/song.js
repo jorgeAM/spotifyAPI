@@ -19,9 +19,9 @@ api.post('/create-song', authenticatedMiddleware.ensureAuth, songController.save
 api.get('/songs/:album?', authenticatedMiddleware.ensureAuth, songController.getSongs);
 api.put('/song/:id', authenticatedMiddleware.ensureAuth, songController.updateSong);
 api.delete('/song/:id', authenticatedMiddleware.ensureAuth, songController.deleteSong);
-//subir imagen de artista
+//subir cancion
 api.post('/upload-song/:id', [authenticatedMiddleware.ensureAuth, multipartMiddleware], songController.uploadSongFile);
-//conseguir imagen de artista
+//conseguir cancion
 api.get('/get-song/:songFile', songController.getSongFile);
 
 module.exports = api;
